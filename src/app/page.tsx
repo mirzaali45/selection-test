@@ -9,19 +9,23 @@ const initialDominoData = [
   [3, 4],
   [1, 1],
   [3, 4],
+  [2, 1],
   [2, 2],
-  [3, 3],
-  [4, 4],
-  [5, 5],
-  [4, 6],
 ];
 
 
 const Home = () => {
   const [dominoData, setDominoData] = useState(initialDominoData);
   const [totalToRemove, setTotalToRemove] = useState<number | "">("");
-  const doubleNumbers = initialDominoData.filter(([a, b]) => a === b);
-  const doubleSum = doubleNumbers.reduce((sum, [a]) => 0 + a, 0);
+  const doubleNumbers = (dominos: number[][]): number => {
+    let res: number =0
+    dominos.forEach((item) => {
+      if (item[0] === item[1]) {
+        res++;
+      }
+    })
+    return res;
+  }
 
   const sortDominoes = (order: "asc" | "desc") => {
     const sorted = [...dominoData].sort((a, b) => {
@@ -83,7 +87,7 @@ const Home = () => {
       </div>
 
       <div className="text-center mb-4">
-        <p className="text-lg">Double numbers count: {doubleSum}</p>
+        <p className="text-lg">Double numbers count: {doubleNumbers(dominoData)}</p>
       </div>
 
       <div className="mt-6 w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 space-y-4 mb-3">
